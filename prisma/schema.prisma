@@ -50,8 +50,8 @@ model Booking {
   id        String   @id @default(uuid())
   userId    String
   user User @relation(fields: [userId], references: [id])
-  ServiceId String 
-  service BarbershopService @relation(fields: [ServiceId], references: [id])
+  serviceId String  @map("ServiceId")
+  service BarbershopService @relation(fields: [serviceId], references: [id])
   date      DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
