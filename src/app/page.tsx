@@ -21,14 +21,54 @@ const Home = async () => {
     <div>
       <Header />
       <div className="p-5">
+        {/* Cabeçalho */}
         <h2 className="text-xl font-bold">Olá, Felipe!</h2>
         <p>Segunda-feira 01 de agosto</p>
+
+        {/* Busca */}
         <div className="mt-6 flex items-center gap-2">
           <Input placeholder="Faça sua busca..." />
           <Button>
             <SearchIcon />
           </Button>
         </div>
+
+        {/* Busca Rápida */}
+
+        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          <Button variant="secondary" className="gap-2">
+            <Image alt="Barba" src="/barba.svg" width={16} height={16} />
+            Barba
+          </Button>
+          <Button variant="secondary" className="gap-2">
+            <Image alt="Cabelo" src="/cabelo.svg" width={16} height={16} />
+            Cabelo
+          </Button>
+          <Button variant="secondary" className="gap-2">
+            <Image
+              alt="acabamento"
+              src="/acabamento.svg"
+              width={16}
+              height={16}
+            />
+            Acabamento
+          </Button>
+          <Button variant="secondary" className="gap-2">
+            <Image alt="Maasagem" src="/massagem.svg" width={16} height={16} />
+            Massagem
+          </Button>
+          <Button variant="secondary" className="gap-2">
+            <Image
+              alt="sobrancelha"
+              src="/sobrancelha.svg"
+              width={16}
+              height={16}
+            />
+            Sobrancelha
+          </Button>
+        </div>
+
+        {/* Banner */}
         <div className="relative mt-6 h-[150px] w-full">
           <Image
             alt="Agende nos melhores com BarberHub"
@@ -37,6 +77,7 @@ const Home = async () => {
             className="rounded-xl object-cover"
           />
         </div>
+        {/* agendamentos */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Agendamentos
         </h2>
@@ -58,6 +99,8 @@ const Home = async () => {
               <p className="text-sm">20:00</p>
             </div>
           </CardContent>
+
+          {/* Recomendados */}
         </Card>
         <h2 className="mb-2 mt-6 text-xs font-bold uppercase text-gray-400">
           Recomendados
@@ -77,6 +120,7 @@ const Home = async () => {
           ))}
         </div>
       </div>
+      {/* rodapé */}
       <footer>
         <Card>
           <CardFooter className="flex flex-col items-center justify-center px-5 py-6 text-center">
