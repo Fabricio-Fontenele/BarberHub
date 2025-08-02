@@ -8,6 +8,7 @@ import { Badge } from "./_components/ui/badge"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershop-item"
+import { quickSearchButtons } from "./_constants/search"
 
 const Home = async () => {
   const barbershops = await db.barbershop.findMany({})
@@ -16,7 +17,6 @@ const Home = async () => {
       name: "desc",
     },
   })
-  console.log(barbershops)
   return (
     <div>
       <Header />
@@ -36,36 +36,17 @@ const Home = async () => {
         {/* Busca Rápida */}
 
         <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
-          <Button variant="secondary" className="gap-2">
-            <Image alt="Barba" src="/barba.svg" width={16} height={16} />
-            Barba
-          </Button>
-          <Button variant="secondary" className="gap-2">
-            <Image alt="Cabelo" src="/cabelo.svg" width={16} height={16} />
-            Cabelo
-          </Button>
-          <Button variant="secondary" className="gap-2">
-            <Image
-              alt="acabamento"
-              src="/acabamento.svg"
-              width={16}
-              height={16}
-            />
-            Acabamento
-          </Button>
-          <Button variant="secondary" className="gap-2">
-            <Image alt="Maasagem" src="/massagem.svg" width={16} height={16} />
-            Massagem
-          </Button>
-          <Button variant="secondary" className="gap-2">
-            <Image
-              alt="sobrancelha"
-              src="/sobrancelha.svg"
-              width={16}
-              height={16}
-            />
-            Sobrancelha
-          </Button>
+          {quickSearchButtons.map((button) => (
+            <Button key={button.title} variant="secondary" className="gap-2">
+              <Image
+                alt={button.title}
+                src={button.imageUrl}
+                width={16}
+                height={16}
+              />
+              {button.title}
+            </Button>
+          ))}
         </div>
 
         {/* Banner */}
