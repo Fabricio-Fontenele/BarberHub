@@ -3,7 +3,6 @@ import Image from "next/image"
 import { Input } from "./_components/ui/input"
 import { Button } from "./_components/ui/button"
 import { SearchIcon } from "lucide-react"
-import { Card, CardFooter } from "./_components/ui/card"
 import { db } from "./_lib/prisma"
 import BarbershopItem from "./_components/barbershop-item"
 import { quickSearchButtons } from "./_constants/search"
@@ -79,18 +78,6 @@ const Home = async () => {
           ))}
         </div>
       </div>
-
-      {/* rodapé */}
-      <footer>
-        <Card>
-          <CardFooter className="flex flex-col items-center justify-center px-5 py-6 text-center">
-            <p className="text-sm text-gray-400">
-              2025 © <span className="font-bold">BarberHub</span> - Todos os
-              direitos reservados.
-            </p>
-          </CardFooter>
-        </Card>
-      </footer>
     </div>
   )
 }
