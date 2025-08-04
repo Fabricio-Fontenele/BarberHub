@@ -112,16 +112,19 @@ const Sidebar = ({}) => {
         {quickSearchButtons.map((option) => (
           <Button
             key={option.title}
-            variant="ghost"
             className="justify-start gap-2"
+            variant="ghost"
+            asChild
           >
-            <Image
-              alt={option.title}
-              src={option.imageUrl}
-              height={18}
-              width={18}
-            />
-            {option.title}
+            <Link href={`/barbershops?service=${option.title}`}>
+              <Image
+                alt={option.title}
+                src={option.imageUrl}
+                height={18}
+                width={18}
+              />
+              {option.title}
+            </Link>
           </Button>
         ))}
       </div>
