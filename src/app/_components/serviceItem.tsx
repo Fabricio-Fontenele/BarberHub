@@ -62,6 +62,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
   )
+  console.log({ data })
 
   const handleSelectDate = (date: Date | undefined) => {
     setSelectedDate(date)
@@ -73,7 +74,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
   const handleCreateBooking = async () => {
     // 1. não exibir horários que já foram agendados
-    // 2. salvar o agendamento para o usuario logado
+    // 2. não exibir botão de "reservar" se o usuario estar logado
     try {
       if (!selectedDate || !selectedTime || !data?.user) return
       const hour = selectedTime?.split(":")[0]
@@ -84,7 +85,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
       })
       await createBooking({
         serviceId: service.id,
-        userId: "cmdwg01ij0000sbsf09sffmq4",
+        userId: (data?.user).id,
         date: newDate,
       })
       toast.success("Reserva criada com sucesso")
@@ -216,9 +217,14 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                   </div>
                 )}
 
-                <SheetFooter className="px-5">
+                <SheetFooter className="mt-5 px-5">
                   <SheetClose asChild>
-                    <Button onClick={handleCreateBooking}>Confirmar</Button>
+                    <Button
+                      onClick={handleCreateBooking}
+                      disabled={!selectedTime || !selectedTime}
+                    >
+                      Confirmar
+                    </Button>
                   </SheetClose>
                 </SheetFooter>
               </SheetContent>
