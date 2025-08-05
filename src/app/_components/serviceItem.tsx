@@ -18,6 +18,10 @@ import { ptBR } from "date-fns/locale"
 import { useState } from "react"
 import { format } from "date-fns/format"
 import { Barbershop } from "@prisma/client"
+import { createBooking } from "../_actions/create-booking"
+import { useSession } from "next-auth/react"
+import { set } from "date-fns"
+import { toast } from "sonner"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -53,6 +57,7 @@ const timeList = [
 ]
 
 const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
+  const { data } = useSession()
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
@@ -64,6 +69,29 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
   const handleSelectTime = (time: string | undefined) => {
     setSelectedTime(time)
+  }
+
+  const handleCreateBooking = async () => {
+    // 1. não exibir horários que já foram agendados
+    // 2. salvar o agendamento para o usuario logado
+    try {
+      if (!selectedDate || !selectedTime || !data?.user) return
+      const hour = selectedTime?.split(":")[0]
+      const minute = selectedTime?.split(":")[1]
+      const newDate = set(selectedDate, {
+        hours: Number(hour),
+        minutes: Number(minute),
+      })
+      await createBooking({
+        serviceId: service.id,
+        userId: "cmdwg01ij0000sbsf09sffmq4",
+        date: newDate,
+      })
+      toast.success("Reserva criada com sucesso")
+    } catch (error) {
+      console.error(error)
+      toast.error("Erro ao criar Reserva!")
+    }
   }
 
   return (
@@ -190,7 +218,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                 <SheetFooter className="px-5">
                   <SheetClose asChild>
-                    <Button type="submit">Confirmar</Button>
+                    <Button onClick={handleCreateBooking}>Confirmar</Button>
                   </SheetClose>
                 </SheetFooter>
               </SheetContent>
